@@ -6,7 +6,7 @@ Please follow the `entry_points` documentation for more details on how to config
 """
 
 from setuptools import find_packages, setup
-from physician_conversion_model import __version__
+from physician_conversion import __version__
 
 PACKAGE_REQUIREMENTS = ["pyyaml"]
 

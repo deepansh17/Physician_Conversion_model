@@ -1,4 +1,4 @@
-from physician_conversion_model.tasks.sample_etl_task import SampleETLTask
+from physician_conversion.tasks.sample_etl_task import SampleETLTask
 
 
 def test_etl():

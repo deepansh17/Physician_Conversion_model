@@ -22,7 +22,7 @@
 
 # COMMAND ----------
 
-from physician_conversion_model.tasks.sample_ml_task import SampleMLTask
+from physician_conversion.tasks.sample_ml_task import SampleMLTask
 
 pipeline = SampleMLTask.get_pipeline()
 print(pipeline)

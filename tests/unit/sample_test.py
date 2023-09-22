@@ -3,8 +3,8 @@ from pathlib import Path
 
 import mlflow
 from pyspark.sql import SparkSession
-from physician_conversion_model.tasks.sample_etl_task import SampleETLTask
-from physician_conversion_model.tasks.sample_ml_task import SampleMLTask
+from physician_conversion.tasks.sample_etl_task import SampleETLTask
+from physician_conversion.tasks.sample_ml_task import SampleMLTask
 
 
 def test_jobs(spark: SparkSession, tmp_path: Path):
