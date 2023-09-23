@@ -33,4 +33,4 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: Run Python Script
-        run: python -m physician_conversion_model/tasks/feature_pipeline.py
+        run: python -m physician_conversion_model/tasks/feature_pipeline
