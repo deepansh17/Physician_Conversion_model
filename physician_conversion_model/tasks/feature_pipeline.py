@@ -23,8 +23,14 @@ import datetime
 
 #warnings
 warnings.filterwarnings('ignore')
+import yaml 
 
-class DataPrep():  
+class DataPrep(): 
+    
+    def __init__(self, conf):
+        self.conf = conf
+        
+         
     def push_df_to_s3(self,df):
 
         # AWS credentials and region
@@ -146,9 +152,9 @@ class DataPrep():
         print(f"Pickled file '{file_name}' uploaded to S3 bucket '{bucket_name}' in folder '{folder_path}'.")
   
   
-    def _preprocess_data(self):
+    def preprocess_data(self):
                 
-        df_input = self.load_data_from_s3(self)
+        df_input = self.load_data_from_s3()
 
         df_input = df_input.reset_index()
 
@@ -188,21 +194,21 @@ class DataPrep():
         
         df = df_input.drop(id_col_list,axis=1)
         target_col_var = df_input[target_col]
-        top_n_col_list = self.select_kbest_features(self,
+        top_n_col_list = self.select_kbest_features(
                 df,target_col_var, n)
         
         #Convert to list
         top_n_col_list = top_n_col_list.tolist()
 
         # Dump top_n_col_list to s3 bucket
-        utils.pickle_dump_list_to_s3(self,top_n_col_list)
+        self.pickle_dump_list_to_s3(top_n_col_list)
         
         #column list for dataframe
         cols_for_model_df_list = id_col_list + top_n_col_list
         df_feature_eng_output = df_input[cols_for_model_df_list]
         df_model_input = df_feature_eng_output.copy()
         
-        push_status = self.push_df_to_s3(self,df_model_input)
+        push_status = self.push_df_to_s3(df_model_input)
         print(push_status)
 
 
@@ -210,4 +216,7 @@ class DataPrep():
 
 
 if __name__ == '__main__':
-    DataPrep._preprocess_data(self)
+    with open('conf/feature_pipeline.yml', 'r') as config_file:
+        configuration = yaml.safe_load(config_file)
+    data_prep = DataPrep(configuration)
+    data_prep.preprocess_data()
