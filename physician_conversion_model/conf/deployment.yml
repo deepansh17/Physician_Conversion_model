@@ -1,0 +1,14 @@
+environments:
+  default:
+    workflows:
+      #######################################################################################
+      #   Example workflow for integration tests                                            #
+      #######################################################################################
+      - name: "feature_pipeline"
+        tasks:
+            python_wheel_task:
+                    package_name: "physician_conversion_model"
+                    entry_point: "feature_pipeline"
+                    parameters: ["--conf-file", "file:fuse://conf/tasks/feature_pipeline.yml"]
+                    
+     
