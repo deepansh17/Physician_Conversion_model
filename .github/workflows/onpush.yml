@@ -8,7 +8,7 @@ on:
       - 'v*' # this tag type is used for release pipelines
 
 jobs:
-  ci-pipeline:
+  utils-pipeline:
 
     runs-on: ubuntu-latest
     strategy:
@@ -39,3 +39,34 @@ jobs:
         run: |
           python physician_conversion_model/utils.py
           
+  feature-pipeline:
+
+    runs-on: ubuntu-latest
+    need: utils-pipeline
+    strategy:
+      max-parallel: 4
+
+    env:
+      AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+          cache-dependency-path: setup.py
+
+      - name: Install pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Python Scripts
+        run: |
+          python physician_conversion_model/tasks/feature_pipeline.py
