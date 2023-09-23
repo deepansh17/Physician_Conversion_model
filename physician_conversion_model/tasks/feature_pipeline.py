@@ -210,4 +210,4 @@ class DataPrep():
 
 
 if __name__ == '__main__':
-    DataPrep._preprocess_data()
+    DataPrep._preprocess_data(self)
