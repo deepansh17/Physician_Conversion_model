@@ -8,6 +8,7 @@ from sklearn.feature_selection import f_classif
 from io import BytesIO
 import uuid
 import pickle
+import os
 
 
 
@@ -20,8 +21,8 @@ class utils():
         bucket_name = self.conf['s3']['bucket_name']
         file_path = self.conf['s3']['file_path']
 
-        aws_access_key = secrets.get(scope="secrets-scope", key="aws-access-key")
-        aws_secret_key = secrets.get(scope="secrets-scope", key="aws-secret-key")
+        aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+        aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
 
         csv_buffer = BytesIO()
@@ -45,12 +46,10 @@ class utils():
         bucket_name = self.conf['s3']['bucket_name']
         file_path = self.conf['s3']['file_path']
 
-        spark = SparkSession.builder.appName("CSV Loading Example").getOrCreate()
+        
 
-        dbutils = DBUtils(spark)
-
-        aws_access_key = dbutils.secrets.get(scope="secrets-scope", key="aws-access-key")
-        aws_secret_key = dbutils.secrets.get(scope="secrets-scope", key="aws-secret-key")
+        aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+        aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
         
         
         access_key = aws_access_key 
@@ -109,16 +108,14 @@ class utils():
         - upload pickle list to s3
         """
         # AWS details
-        spark = SparkSession.builder.appName("CSV Loading Example").getOrCreate()
 
         bucket_name = self.conf['s3']['bucket_name']
         aws_region = self.conf['s3']['aws_region']
         folder_path = self.conf['preprocessed']['model_variable_list_file_path']
         file_name = self.conf['preprocessed']['model_variable_list_file_name']
 
-        dbutils = DBUtils(spark)
-        aws_access_key = dbutils.secrets.get(scope="secrets-scope", key="aws-access-key")
-        aws_secret_key = dbutils.secrets.get(scope="secrets-scope", key="aws-secret-key")
+        aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+        aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
         access_key = aws_access_key 
         secret_key = aws_secret_key
         print(f"Access key and secret key are {access_key} and {secret_key}")
