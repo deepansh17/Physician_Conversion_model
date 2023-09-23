@@ -16,7 +16,7 @@ import pickle
 from io import BytesIO
 
 
-from physician_conversion_model.utils import utils
+from utils import utils
 
 
 #pyspark and feature store 
