@@ -1,0 +1,31 @@
+s3: 
+    bucket_name: "pharma-physician-conversion"
+    file_path: "Input_data/Input_data.csv"
+    aws_region : 'ap-south-1'  # Replace with your desired AWS region
+
+preprocessed:
+    preprocessed_df_path: 'preprocessed/preprocessed_df.csv' 
+    x_test: 'preprocessed/x_test.csv'
+    y_test: 'preprocessed/y_test.csv'
+    encoders_path: 'preprocessed/encoders.pkl'
+    model_variable_list_file_path: "preprocessed/"
+    model_variable_list_file_name: "top_n_list_selectKbest.pkl"
+
+feature_transformation:
+    drop_column_list : ['HCO_Affiliation']
+    one_hot_encode_feature_list :  ['Sex', 'Specialty', 'HCO_Affiliation_Type']
+    id_target_col_list : ['NPI_ID', 'HCP_ID', 'TARGET']
+    id_col_list : ['NPI_ID', 'HCP_ID']
+    target_col : ['TARGET']
+
+param_values:
+    variance_threshold_value : 0.1
+    select_k_best_feature_num : 30
+
+
+feature_store:
+    table_name: "physician_conversion_feature_table"
+    lookup_key: ['NPI_ID', 'HCP_ID']
+    label : ['TARGET']
+    description : "Physician conversion features- claims, procedure, demographic, etc."
+    
