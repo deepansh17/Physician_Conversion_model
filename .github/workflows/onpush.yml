@@ -37,4 +37,4 @@ jobs:
           pip install -e ".[local,test]"
 
       - name: Run Python Script
-        run: python -m physician_conversion_model/tasks/feature_pipeline
+        run: python feature_pipeline
