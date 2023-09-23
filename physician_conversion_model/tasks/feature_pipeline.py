@@ -88,17 +88,8 @@ class DataPrep():
         print(push_status)
 
 
-    def launch(self):
-         
-         self._preprocess_data()
 
-   
-
-def entrypoint():  
-    
-    task = DataPrep()
-    task.launch()
 
 
 if __name__ == '__main__':
-    entrypoint()
+    DataPrep()
