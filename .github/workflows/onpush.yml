@@ -38,4 +38,4 @@ jobs:
       - name: Run Python Scripts
         run: |
           python physician_conversion_model/utils.py
-          python physician_conversion_model/tasks/feature_pipeline.py
+          
