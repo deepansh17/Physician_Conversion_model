@@ -8,24 +8,20 @@ on:
       - "v*" # this tag type is used for release pipelines
 
 jobs:
-  utils-pipeline:
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      matrix:
+        python-version: ["3.9"]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          python-version: "3.9"
-          cache: "pip" # caching pip dependencies
-          cache-dependency-path: setup.py
+          python-version: ${{ matrix.python-version }}
 
       - name: Install pip
         run: |
@@ -34,29 +30,21 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Python Scripts
-        run: |
-          python physician_conversion_model/utils.py
+      - name: Run utils Python Script
+        run: python physician_conversion_model/utils.py
 
   feature-pipeline:
     runs-on: ubuntu-latest
-    need: utils-pipeline
-    strategy:
-      max-parallel: 4
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    needs: build-and-test
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: "3.9"
-          cache: "pip" # caching pip dependencies
-          cache-dependency-path: setup.py
 
       - name: Install pip
         run: |
@@ -65,6 +53,5 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Python Scripts
-        run: |
-          python physician_conversion_model/tasks/feature_pipeline.py
+      - name: Run feature Python Script
+        run: python physician_conversion_model/tasks/feature_pipeline.py
