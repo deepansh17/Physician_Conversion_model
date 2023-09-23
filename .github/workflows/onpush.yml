@@ -35,6 +35,5 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-        
-      - name: Run Python Script
+      - name: Run feature Python Script
         run: python physician_conversion_model/tasks/feature_pipeline.py
