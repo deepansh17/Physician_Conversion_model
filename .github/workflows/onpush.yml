@@ -52,4 +52,4 @@ jobs:
 
       - name: Run entry point of Feature pipeline
         run: |
-          feature_pipeline
+          feature_pipeline_run
