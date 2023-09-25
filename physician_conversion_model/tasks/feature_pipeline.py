@@ -216,7 +216,7 @@ class DataPrep():
 
 
 if __name__ == '__main__':
-    with open('conf/feature_pipeline.yml', 'r') as config_file:
+    with open('conf/tasks/feature_pipeline.yml', 'r') as config_file:
         configuration = yaml.safe_load(config_file)
     data_prep = DataPrep(configuration)
     data_prep.preprocess_data()
