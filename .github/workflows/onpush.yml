@@ -37,9 +37,9 @@ jobs:
         run: pip install -r requirements.txt
 
 
-      - name: List Directories in Working Directory
+      - name: List Subdirectories and Contents Recursively
         run: |
-          ls -d */
+          ls -R
 
       - name: Debug Output
         run: |
