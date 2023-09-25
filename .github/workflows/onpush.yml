@@ -40,7 +40,7 @@ jobs:
         run: |
           ls -l  # List the current directory contents
           pwd    # Print the current working directory
-          echo "Checking if feature_pipepline.yml exists: $(ls ..conf/tasks/feature_pipepline.yml)"
+          echo "Checking if feature_pipepline.yml exists: $(ls /home/runner/work/Physician_Conversion_model/conf/tasks/feature_pipepline.yml)"
 
       - name: Run feature Python Script
         run: python physician_conversion_model/tasks/feature_pipeline.py
