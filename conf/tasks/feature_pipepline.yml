@@ -1,7 +1,7 @@
 s3: 
-    bucket_name: "pharma-physician-conversion"
-    file_path: "Input_data/Input_data.csv"
-    aws_region : 'ap-south-1'  # Replace with your desired AWS region
+    bucket_name: "physicianconversionbucket"
+    file_path: "Input_data.csv"
+    aws_region : 'eu-north-1'  # Replace with your desired AWS region
 
 preprocessed:
     preprocessed_df_path: 'preprocessed/preprocessed_df.csv' 
