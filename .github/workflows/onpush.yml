@@ -36,6 +36,11 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+
+      - name: Display Working Directory
+        run: |
+          pwd
+
       - name: Debug Output
         run: |
           ls -l  # List the current directory contents
