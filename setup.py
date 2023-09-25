@@ -14,13 +14,12 @@ PACKAGE_REQUIREMENTS = ["pyyaml"]
 
 
 setup(
-    name="physician_conversion_model",
-    install_requires=PACKAGE_REQUIREMENTS,
-    entry_points = {
-        "console_scripts": [
-            "feature_pipeline = physician_conversion_model.tasks.feature_pipeline:entrypoint"
-    ]},
-    version=__version__,
-    description="",
-    author="",
+    name='physician_conversion_model',
+    version='0.1',
+    packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'feature_pipeline = physician_conversion_model.tasks.feature_pipeline',  # Replace with your entry point
+        ],
+    },
 )
