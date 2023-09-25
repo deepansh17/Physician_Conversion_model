@@ -19,10 +19,11 @@ jobs:
       AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
@@ -35,7 +36,12 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-
+      - name: Debug Output
+        run: |
+          ls -l  # List the current directory contents
+          pwd    # Print the current working directory
+          echo "Checking if feature_pipepline.yml exists: $(ls physician_conversion_model/tasks/feature_pipeline.py)"
 
       - name: Run feature Python Script
         run: python physician_conversion_model/tasks/feature_pipeline.py
+
