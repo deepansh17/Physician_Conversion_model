@@ -12,9 +12,14 @@ import os
 import boto3
 import urllib
 import pickle
+import sys
+import os
+
+# Add the project root directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from io import BytesIO
-from ..utils import utils
+from utils import utils
 
 
 
