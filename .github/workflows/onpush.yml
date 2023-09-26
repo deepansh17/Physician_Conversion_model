@@ -56,5 +56,5 @@ jobs:
 
       - name: Run the training_pipeline workflow in a jobless fashion
         run: |
-          python -m physician_conversion_model.feature_pipeline_run
+          python -m physician_conversion_model.main
 
