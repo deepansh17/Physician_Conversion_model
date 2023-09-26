@@ -47,8 +47,9 @@ jobs:
           pwd    # Print the current working directory
           echo "Checking if feature_pipepline.yml exists: $(ls ./conf/tasks/feature_pipepline.yml)"
 
-      - name: Add utils directory to PYTHONPATH
-        run: echo "::add-path::$(pwd)/utils"
+      - name: Set PYTHONPATH
+        run: |
+          echo 'export PYTHONPATH=$PYTHONPATH:$(pwd)/utils' >> $GITHUB_ENV
 
       - name: Run the training_pipeline workflow in a jobless fashion
         run: |
