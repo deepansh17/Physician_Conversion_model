@@ -14,7 +14,7 @@ import urllib
 import pickle
 
 from io import BytesIO
-from .utils import utils
+from ..utils import utils
 
 
 
