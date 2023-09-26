@@ -50,11 +50,11 @@ jobs:
       # - name: Run feature Python Script
       #   run: python physician_conversion_model/tasks/feature_pipeline.py
 
-      - name: Deploy training_pipeline (Replace this with your deployment steps)
-        run: |
-          python deploy feature_pipeline_run
+      # - name: Deploy training_pipeline (Replace this with your deployment steps)
+      #   run: |
+      #     python deploy feature_pipeline_run
 
       - name: Run the training_pipeline workflow in a jobless fashion
         run: |
-          python launch feature_pipeline_run
+          python feature_pipeline_run
 
