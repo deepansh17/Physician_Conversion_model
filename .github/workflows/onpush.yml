@@ -49,7 +49,7 @@ jobs:
 
       - name: Set PYTHONPATH
         run: |
-          echo 'export PYTHONPATH=$PYTHONPATH:$(pwd)/utils' >> $GITHUB_ENV
+          echo 'export PYTHONPATH=$PYTHONPATH:$(pwd)' >> $GITHUB_ENV
 
       - name: Run the training_pipeline workflow in a jobless fashion
         run: |
