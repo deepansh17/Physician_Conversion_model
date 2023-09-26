@@ -19,7 +19,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'feature_pipeline_run = .physician_conversion_model.tasks.feature_pipeline',  # Replace with your entry point
+            'feature_pipeline_run = physician_conversion_model.tasks.feature_pipeline',  # Replace with your entry point
         ],
     },
 )

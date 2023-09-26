@@ -25,8 +25,9 @@ import datetime
 #warnings
 warnings.filterwarnings('ignore')
 import yaml 
+from physician_conversion_model.common import Task
 
-class DataPrep(): 
+class DataPrep(Task): 
     
     def __init__(self, conf):
         self.conf = conf
@@ -213,11 +214,16 @@ class DataPrep():
         print(push_status)
 
 
-
+    def launch(self):
+         
+         self.preprocess_data()
+         
+def entrypoint():  
+    with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
+        configuration = yaml.safe_load(config_file)
+    task = DataPrep(configuration)
+    task.launch()
 
 
 if __name__ == '__main__':
-    with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
-        configuration = yaml.safe_load(config_file)
-    data_prep = DataPrep(configuration)
-    data_prep.preprocess_data()
+    entrypoint()
