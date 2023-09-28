@@ -63,10 +63,4 @@ class Task(ABC):
         for key, item in self.conf.items():
             self.logger.info("\t Parameter: %-30s with value => %-30s" % (key, item))
 
-    @abstractmethod
-    def launch(self):
-        """
-        Main method of the job.
-        :return:
-        """
-        pass
+   
