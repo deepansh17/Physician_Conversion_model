@@ -170,7 +170,7 @@ class DataPrep():
   
     def preprocess_data(self):
         
-        my_module = self.load_module("utils.py", "push_df_to_s3")
+        my_module = self.load_module("./physician_conversion_model/tasks/utils.py", "push_df_to_s3")
                 
         df_input = self.load_data_from_s3()
 
