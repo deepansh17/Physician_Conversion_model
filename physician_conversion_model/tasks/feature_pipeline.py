@@ -172,7 +172,8 @@ class DataPrep():
         
         bucket_name = self.conf['s3']['bucket_name']
         my_module = self.load_module("./physician_conversion_model/tasks/utils.py", "utils")        
-        df_input = my_module.load_data_from_s3(bucket_name)
+        utils_func = my_module.utils()
+        df_input = utils_func.load_data_from_s3(bucket_name)
 
         df_input = df_input.reset_index()
 
