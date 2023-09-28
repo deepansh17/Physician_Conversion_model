@@ -19,7 +19,10 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from io import BytesIO
-from utils import utils
+import importlib.util
+import sys
+
+
 
 
 
@@ -37,7 +40,13 @@ class DataPrep(Task):
     def __init__(self, conf):
         self.conf = conf
         
-         
+    def load_module(self,file_name, module_name)
+        spec = importlib.util.spec_from_file_location(module_name, file_name)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+        return module   
+    
     def push_df_to_s3(self,df):
 
         # AWS credentials and region
@@ -160,6 +169,8 @@ class DataPrep(Task):
   
   
     def preprocess_data(self):
+        
+        my_module = self.load_module("utils.py", "push_df_to_s3")
                 
         df_input = self.load_data_from_s3()
 
