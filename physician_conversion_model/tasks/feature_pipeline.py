@@ -111,12 +111,10 @@ class DataPrep():
         cols_for_model_df_list = id_col_list + top_n_col_list
         df_feature_eng_output = df_input[cols_for_model_df_list]
         df_model_input = df_feature_eng_output.copy()
+        s3_object_key = self.conf['preprocessed']['preprocessed_df_path'] 
         
-        push_status = utils_func.push_df_to_s3(df_model_input,bucket_name,aws_region,file_path)
+        push_status = utils_func.push_df_to_s3(df_model_input,bucket_name,aws_region,file_path,s3_object_key)
         print(push_status)
-
-
-         
 
 
 if __name__ == '__main__':

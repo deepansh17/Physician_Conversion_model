@@ -15,7 +15,7 @@ import os
 class utils():
     
 
-    def push_df_to_s3(self,df,bucket_name,aws_region,file_path):
+    def push_df_to_s3(self,df,bucket_name,aws_region,file_path,s3_object_key):
 
 
         aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
@@ -30,8 +30,8 @@ class utils():
                     aws_secret_access_key=aws_secret_key, 
                     region_name=aws_region)
 
-        s3_object_key = self.conf['preprocessed']['preprocessed_df_path'] 
-        s3.Object(self.conf['s3']['bucket_name'], s3_object_key).put(Body=csv_content)
+        
+        s3.Object(bucket_name, s3_object_key).put(Body=csv_content)
 
         return {"df_push_status": 'success'}
     
