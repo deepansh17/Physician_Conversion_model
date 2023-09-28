@@ -53,9 +53,6 @@ class Task(ABC):
         config = yaml.safe_load(pathlib.Path(conf_file).read_text())
         return config
 
-    def _prepare_logger(self):
-        log4j_logger = self.spark._jvm.org.apache.log4j  # noqa
-        return log4j_logger.LogManager.getLogger(self.__class__.__name__)
 
     def _log_conf(self):
         # log parameters
