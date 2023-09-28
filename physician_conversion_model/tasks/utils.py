@@ -40,11 +40,11 @@ class utils():
         return {"df_push_status": 'success'}
     
 
-    def load_data_from_s3(self):
+    def load_data_from_s3(self,bucket_name):
 
         # AWS credentials and region
         aws_region = self.conf['s3']['aws_region']
-        bucket_name = self.conf['s3']['bucket_name']
+        
         file_path = self.conf['s3']['file_path']
 
         
