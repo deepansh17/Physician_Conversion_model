@@ -96,7 +96,7 @@ class DataPrep():
         
         df = df_input.drop(id_col_list,axis=1)
         target_col_var = df_input[target_col]
-        top_n_col_list = self.select_kbest_features(
+        top_n_col_list = utils_func.select_kbest_features(
                 df,target_col_var, n)
         
         #Convert to list
