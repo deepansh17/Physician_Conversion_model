@@ -19,7 +19,8 @@ def load_module(file_name, module_name):
         spec.loader.exec_module(module)
         return module  
 
-task_module = load_module("./physician_conversion_model/common.py", "Task") 
+common_module = load_module("./physician_conversion_model/common.py", "common") 
+task_module = common_module.Task()
 
 
 
