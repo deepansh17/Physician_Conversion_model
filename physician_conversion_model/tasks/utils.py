@@ -9,15 +9,25 @@ from io import BytesIO
 import uuid
 import pickle
 import os
+import importlib.util
+import sys
+
+def load_module(self,file_name, module_name):
+        spec = importlib.util.spec_from_file_location(module_name, file_name)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+        return module  
+
+task_module = load_module("./physician_conversion_model/common.py", "Task") 
 
 
 
-class utils():
-    
+class utils(task_module):
+   
 
     def push_df_to_s3(self,df,bucket_name,aws_region,file_path,s3_object_key):
-
-
+        bucket_name = self.conf['s3']['bucket_name']
         aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
         aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
 

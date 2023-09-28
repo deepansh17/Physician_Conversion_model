@@ -21,11 +21,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from io import BytesIO
 import importlib.util
 import sys
-
-
-
-
-
 #pyspark and feature store 
 import os
 import datetime
@@ -48,7 +43,7 @@ class DataPrep():
         return module   
     
   
-    def preprocess_data(self):
+    def preprocess_data(self): 
         
         bucket_name = self.conf['s3']['bucket_name']
         aws_region = self.conf['s3']['aws_region']
