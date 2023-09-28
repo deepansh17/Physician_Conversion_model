@@ -15,12 +15,8 @@ import os
 class utils():
     
 
-    def push_df_to_s3(self,df):
+    def push_df_to_s3(self,df,bucket_name,aws_region,file_path):
 
-        # AWS credentials and region
-        aws_region = self.conf['s3']['aws_region']
-        bucket_name = self.conf['s3']['bucket_name']
-        file_path = self.conf['s3']['file_path']
 
         aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
         aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
@@ -40,12 +36,10 @@ class utils():
         return {"df_push_status": 'success'}
     
 
-    def load_data_from_s3(self,bucket_name):
+    def load_data_from_s3(self,bucket_name,aws_region,file_path):
 
         # AWS credentials and region
-        aws_region = self.conf['s3']['aws_region']
         
-        file_path = self.conf['s3']['file_path']
 
         
 
@@ -98,7 +92,7 @@ class utils():
         return top_n_features
         
         
-    def pickle_dump_list_to_s3(self, column_list):
+    def pickle_dump_list_to_s3(self, column_list,folder_path,file_name,bucket_name,aws_region):
         """
         Pickle dump a list of columns and upload it to an S3 bucket in the specified folder.
 
@@ -110,10 +104,7 @@ class utils():
         """
         # AWS details
 
-        bucket_name = self.conf['s3']['bucket_name']
-        aws_region = self.conf['s3']['aws_region']
-        folder_path = self.conf['preprocessed']['model_variable_list_file_path']
-        file_name = self.conf['preprocessed']['model_variable_list_file_name']
+        
 
         aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
         aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
