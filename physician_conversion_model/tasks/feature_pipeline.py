@@ -38,9 +38,6 @@ class DataPrep:
         spec.loader.exec_module(module)
         return module
 
-    def load_configuration(self, conf_file_path):
-        with open(conf_file_path, 'r') as config_file:
-            self.conf = yaml.safe_load(config_file)
 
     def preprocess_data(self):
         """
@@ -99,6 +96,7 @@ class DataPrep:
         print(push_status)
 
 if __name__ == '__main__':
-    config_file_path = './conf/tasks/feature_pipeline.yml'
-    task = DataPrep(config_file_path)
+    with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
+        configuration = yaml.safe_load(config_file)
+    task = DataPrep(configuration)
     task.preprocess_data()
