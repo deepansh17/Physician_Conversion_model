@@ -16,8 +16,8 @@ warnings.filterwarnings('ignore')
 
 class DataPrep:
 
-    def __init__(self, conf_file_path):
-        self.load_configuration(conf_file_path)
+    def __init__(self, conf):
+        self.conf = conf
         self.bucket_name = self.conf['s3']['bucket_name']
         self.aws_region = self.conf['s3']['aws_region']
         self.file_path = self.conf['s3']['file_path']
