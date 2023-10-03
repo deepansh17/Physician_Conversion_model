@@ -6,6 +6,7 @@ import os
 import boto3
 import importlib.util
 import sys
+import hopsworks
 
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 from sklearn.feature_selection import VarianceThreshold, SelectKBest, f_classif
@@ -30,6 +31,8 @@ class DataPrep:
         self.folder_path = self.conf['preprocessed']['model_variable_list_file_path']
         self.file_name = self.conf['preprocessed']['model_variable_list_file_name']
         self.s3_object_key = self.conf['preprocessed']['preprocessed_df_path']
+        self.api_key = self.conf['hopsworks_feature_store']['api_key']
+        self.project_name = self.conf['hopsworks_feature_store']['project_name']
 
     def load_module(self, file_name, module_name):
         spec = importlib.util.spec_from_file_location(module_name, file_name)
@@ -94,6 +97,11 @@ class DataPrep:
 
         push_status = utils_func.push_df_to_s3(df_model_input, self.bucket_name, self.aws_region, self.file_path, self.s3_object_key)
         print(push_status)
+        project = hopsworks.login(
+            api_key_value=self.api_key,
+            project=self.project_name,
+        )
+        fs = project.get_feature_store()
 
 if __name__ == '__main__':
     with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:

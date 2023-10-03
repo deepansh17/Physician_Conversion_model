@@ -23,9 +23,14 @@ param_values:
     select_k_best_feature_num : 30
 
 
-feature_store:
+hopsworks_feature_store:
+    api_key: "Opj3Q11E9l2J6Gl5.cWuMNUBKBrRs7L966VMGIf2DMgrm753CJhZ93RxMTuW93a9fvC9fHzytjl3bnkME"
+    project_name: "MlopsLearning"
     table_name: "physician_conversion_feature_table"
     lookup_key: ['NPI_ID', 'HCP_ID']
     label : ['TARGET']
     description : "Physician conversion features- claims, procedure, demographic, etc."
+
+
+
     
