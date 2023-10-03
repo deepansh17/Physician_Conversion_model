@@ -33,6 +33,9 @@ class DataPrep:
         self.s3_object_key = self.conf['preprocessed']['preprocessed_df_path']
         self.api_key = self.conf['hopsworks_feature_store']['api_key']
         self.project_name = self.conf['hopsworks_feature_store']['project_name']
+        self.table_name = self.conf['hopsworks_feature_store']['table_name']
+        self.description = self.conf['hopsworks_feature_store']['description']
+        self.lookup_key = self.conf['hopsworks_feature_store']['lookup_key']
 
     def load_module(self, file_name, module_name):
         spec = importlib.util.spec_from_file_location(module_name, file_name)
@@ -78,6 +81,7 @@ class DataPrep:
         
         #remove above list column from master dataframe
         df_input.drop(remove_col_list, axis=1, inplace=True, errors='ignore')
+        df_feature_store = df_input.copy()
 
         #Feature Selection Using Select K Best
         df = df_input.drop(self.id_col_list, axis=1)
@@ -97,11 +101,20 @@ class DataPrep:
 
         push_status = utils_func.push_df_to_s3(df_model_input, self.bucket_name, self.aws_region, self.file_path, self.s3_object_key)
         print(push_status)
+        
+        #uploading data to Feature Store
         project = hopsworks.login(
             api_key_value=self.api_key,
             project=self.project_name,
         )
         fs = project.get_feature_store()
+        physician_fs = fs.get_or_create_feature_group(
+            name=self.table_name,
+            version=1,
+            description=self.description,
+            primary_key=self.lookup_key
+        )
+        physician_fs.insert(df_feature_store.drop(["TARGET"],axis=1))
 
 if __name__ == '__main__':
     with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
