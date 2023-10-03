@@ -67,7 +67,7 @@ class DataPrep:
 
         #One hot encode categorical features
         df_input = pd.get_dummies(df_input, columns=self.encode_col_list, drop_first=True)
-        df_input.columns = df_input.columns.str.replace(" ","")
+        df_input.columns = df_input.columns.str.replace(" ", "").str.replace("-", "")
         
         #Select variables for feature selection
         id_target_col_list = self.conf['feature_transformation']['id_target_col_list']
