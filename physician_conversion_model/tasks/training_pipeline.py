@@ -49,6 +49,7 @@ class Trainmodel():
         self.table_name = self.conf['hopsworks_feature_store']['table_name']
         self.folder_path = self.conf['preprocessed']['model_variable_list_file_path']
         self.file_name = self.conf['preprocessed']['model_variable_list_file_name']
+        self.feature_view = self.conf['hopsworks_feature_store']['feature_view']
         
     def load_module(self, file_name, module_name):
         spec = importlib.util.spec_from_file_location(module_name, file_name)
@@ -81,10 +82,21 @@ class Trainmodel():
         fs = project.get_feature_store()
         features_df = fs.get_feature_group(self.table_name , version=1)
         file_select_features = self.folder_path+self.file_name
+        
+        #load data from pickle file
         model_features_list = utils_func.load_pickle_from_s3(self.bucket_name,self.aws_region, file_select_features)
         query = features_df.select(model_features_list)
-
-        print(model_features_list)
+        
+        #create feature view
+        feature_view = fs.get_or_create_feature_view(
+        name=self.feature_view,
+        version=1,
+        query=query,
+        labels=["TARGET"]
+        )
+        print(feature_view)
+       
+        
         
 if __name__ == '__main__':
     with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
