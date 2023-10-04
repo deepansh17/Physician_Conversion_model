@@ -11,12 +11,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 
 # Importing necessary libraries for model development and evaluation
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve, auc
 import xgboost as xgb
-import lightgbm as lgb
 from urllib.parse import urlparse
 import mlflow
 from mlflow.tracking.client import MlflowClient
