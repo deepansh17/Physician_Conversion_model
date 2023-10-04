@@ -45,7 +45,7 @@ class Trainmodel():
         self.bucket_name = self.conf['s3']['bucket_name']
         self.aws_region = self.conf['s3']['aws_region']
         self.input_training_path = self.conf['preprocessed']['preprocessed_df_path']
-        self.col_list = self.conf['feature_store']['lookup_key']
+        self.col_list = self.conf['hopsworks_feature_store']['lookup_key']
         self.table_name = self.conf['hopsworks_feature_store']['table_name']
         self.folder_path = self.conf['preprocessed']['model_variable_list_file_path']
         self.file_name = self.conf['preprocessed']['model_variable_list_file_name']
