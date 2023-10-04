@@ -107,5 +107,35 @@ class utils():
         s3 = boto3.resource("s3", aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key, region_name=aws_region)
         s3.Bucket(bucket_name).upload_file(file_name, os.path.join(folder_path, file_name))
 
-        
+    
+    def load_pickle_from_s3(self, bucket_name, aws_region, file_path):
+        try:
+            # Create an S3 client
+            aws_access_key = os.environ.get("AWS_ACCESS_KEY_ID")
+            aws_secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
+            s3 = boto3.resource("s3",aws_access_key_id=aws_access_key, 
+                      aws_secret_access_key=aws_secret_key, 
+                      region_name=aws_region)
+                
+
+            s3_object = s3.Object(bucket_name, file_path)
+
+            # Read the pickle file from the S3 response
+            pickle_data = s3_object.get()['Body'].read()
+
+            # Deserialize the pickle data to obtain the Python object (list in this case)
+            loaded_list = pickle.loads(pickle_data)
+
+            return loaded_list
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            return None
+        
+            
+    def convert_columns_to_string(self,df, columns):
+        for col in columns:
+            if col in df.columns:
+                df[col] = df[col].astype(str)
+            else:
+                print(f"Column '{col}' not found in the DataFrame.")
