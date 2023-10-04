@@ -94,9 +94,17 @@ class Trainmodel():
         query=query,
         labels=["target"]
         )
-        td = fs.get_feature_view(self.feature_view, version=1)
-        print(td)
-        print(type(td))
+        TEST_SIZE = 0.2
+        VALIDATION_SIZE = 0.3
+        td_version, td_job = feature_view.create_train_test_split(
+            description = 'Physician Conversion model feature data',
+            data_format = 'csv',
+            validation_size = VALIDATION_SIZE,
+            test_size = TEST_SIZE
+        )
+        
+        # create a training dataset as DataFrame
+        X_train, X_val, X_test, y_train, y_val, y_test = feature_view.train_validation_test_split(validation_size=VALIDATION_SIZE, test_size=TEST_SIZE,random_state=42)
        
         
         
