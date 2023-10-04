@@ -83,7 +83,8 @@ class DataPrep:
         #remove above list column from master dataframe
         df_input.drop(remove_col_list, axis=1, inplace=True, errors='ignore')
         df_feature_store = df_input.copy()
-
+        push_status = utils_func.push_df_to_s3(df_feature_store, self.bucket_name, self.aws_region, self.s3_object_key)
+        print(push_status)
         #Feature Selection Using Select K Best
         df = df_input.drop(self.id_col_list, axis=1)
         target_col_var = df_input[self.target_col]
@@ -100,8 +101,8 @@ class DataPrep:
         df_feature_eng_output = df_input[cols_for_model_df_list]
         df_model_input = df_feature_eng_output.copy()
 
-        push_status = utils_func.push_df_to_s3(df_model_input, self.bucket_name, self.aws_region, self.file_path, self.s3_object_key)
-        print(push_status)
+        
+        
         
         #uploading data to Feature Store
         project = hopsworks.login(

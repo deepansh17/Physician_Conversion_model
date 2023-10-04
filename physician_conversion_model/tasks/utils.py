@@ -11,7 +11,7 @@ import sys
 class utils():
    
 
-    def push_df_to_s3(self, df, bucket_name, aws_region, file_path, s3_object_key):
+    def push_df_to_s3(self, df, bucket_name, aws_region, s3_object_key):
         """
         Push a DataFrame to an S3 bucket.
 
