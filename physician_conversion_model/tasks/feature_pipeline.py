@@ -116,7 +116,7 @@ class DataPrep:
             description=self.description,
             primary_key=self.lookup_key
         )
-        physician_fs.insert(df_feature_store.drop(["TARGET"],axis=1))
+        physician_fs.insert(df_feature_store)
 
 if __name__ == '__main__':
     with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
