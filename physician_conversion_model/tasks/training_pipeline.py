@@ -92,7 +92,7 @@ class Trainmodel():
         name=self.feature_view,
         version=1,
         query=query,
-        labels=["TARGET"]
+        labels=["target"]
         )
         print(feature_view)
        
