@@ -14,11 +14,11 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve, auc
 import xgboost as xgb
 from urllib.parse import urlparse
-import mlflow
-from mlflow.tracking.client import MlflowClient
+# import mlflow
+# from mlflow.tracking.client import MlflowClient
 
-# Hyperparameter Tuning
-from hyperopt import fmin, tpe, hp, SparkTrials, STATUS_OK, Trials
+# # Hyperparameter Tuning
+# from hyperopt import fmin, tpe, hp, SparkTrials, STATUS_OK, Trials
 
 #System and Env Dependencies
 import warnings
