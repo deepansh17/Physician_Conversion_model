@@ -78,7 +78,8 @@ class Trainmodel():
         
         utils_func.convert_columns_to_string(df_input, self.col_list)
         # Get features from Hopsworks
-        features_df = project.get_feature_group(self.table_name , version=1)
+        fs = project.get_feature_store()
+        features_df = fs.get_feature_group(self.table_name , version=1)
         file_select_features = self.folder_path+self.file_name
         model_features_list = utils_func.load_pickle_from_s3(self.bucket_name,self.aws_region, file_select_features)
         query = features_df.select(model_features_list)
