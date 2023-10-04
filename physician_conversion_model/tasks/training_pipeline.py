@@ -96,7 +96,7 @@ class Trainmodel():
         )
         TEST_SIZE = 0.2
         VALIDATION_SIZE = 0.3
-        td_version, td_job = feature_view.create_train_test_split(
+        td_version, td_job = feature_view.create_train_validation_test_split(
             description = 'Physician Conversion model feature data',
             data_format = 'csv',
             validation_size = VALIDATION_SIZE,
