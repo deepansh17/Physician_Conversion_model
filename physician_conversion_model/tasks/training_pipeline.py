@@ -94,7 +94,9 @@ class Trainmodel():
         query=query,
         labels=["target"]
         )
-        print(feature_view)
+        td = fs.get_feature_view(self.feature_view, version=1)
+        print(td)
+        print(type(td))
        
         
         
