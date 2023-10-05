@@ -10,6 +10,7 @@ import hopsworks
 
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 from sklearn.feature_selection import VarianceThreshold, SelectKBest, f_classif
+from sklearn.model_selection import train_test_split
 
 from io import BytesIO
 
@@ -31,11 +32,14 @@ class DataPrep:
         self.folder_path = self.conf['preprocessed']['model_variable_list_file_path']
         self.file_name = self.conf['preprocessed']['model_variable_list_file_name']
         self.s3_object_key = self.conf['preprocessed']['preprocessed_df_path']
+        self.train_path = self.conf['preprocessed']['train_df_path']
+        self.inference_path = self.conf['preprocessed']['inference_df_path']
         self.api_key = self.conf['hopsworks_feature_store']['api_key']
         self.project_name = self.conf['hopsworks_feature_store']['project_name']
         self.table_name = self.conf['hopsworks_feature_store']['table_name']
         self.description = self.conf['hopsworks_feature_store']['description']
         self.lookup_key = self.conf['hopsworks_feature_store']['lookup_key']
+        self.inference_size = self.conf['train_model_parameters']['inference_size']
 
     def load_module(self, file_name, module_name):
         spec = importlib.util.spec_from_file_location(module_name, file_name)
@@ -83,8 +87,22 @@ class DataPrep:
         #remove above list column from master dataframe
         df_input.drop(remove_col_list, axis=1, inplace=True, errors='ignore')
         df_feature_store = df_input.copy()
-        push_status = utils_func.push_df_to_s3(df_feature_store, self.bucket_name, self.aws_region, self.s3_object_key)
-        print(push_status)
+        
+        # create Xtrain and Ytrain
+        X = df_input.drop("TARGET", axis=1)
+        y = df_input["TARGET"]
+        X_train_set, X_inference, y_train_set, y_inference = train_test_split(X, y,
+                                                                       test_size=self.inference_size, 
+                                                                       random_state=42,
+                                                                         stratify= y)
+        train_df = pd.concat([X_train_set, y_train_set], axis=1)
+        inference_df = pd.concat([X_inference, y_inference], axis=1)
+        
+        # push data to s3 bucket
+        push_status_train = utils_func.push_df_to_s3(train_df, self.bucket_name, self.aws_region, self.train_path)
+        push_status_inference = utils_func.push_df_to_s3(inference_df, self.bucket_name, self.aws_region, self.train_path)
+        push_status_df = utils_func.push_df_to_s3(df_feature_store, self.bucket_name, self.aws_region, self.inference_path)
+        
         #Feature Selection Using Select K Best
         df = df_input.drop(self.id_col_list, axis=1)
         target_col_var = df_input[self.target_col]
@@ -116,7 +134,7 @@ class DataPrep:
             description=self.description,
             primary_key=self.lookup_key
         )
-        physician_fs.insert(df_feature_store)
+        physician_fs.insert(train_df)
 
 if __name__ == '__main__':
     with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:

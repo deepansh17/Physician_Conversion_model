@@ -10,6 +10,8 @@ preprocessed:
     encoders_path: 'preprocessed/encoders.pkl'
     model_variable_list_file_path: "preprocessed/"
     model_variable_list_file_name: "top_n_list_selectKbest.pkl"
+    train_df_path: "train/train.csv"
+    inference_df_path: "inference/inference.csv"
 
 feature_transformation:
     drop_column_list : ['HCO_Affiliation']
@@ -33,5 +35,7 @@ hopsworks_feature_store:
     feature_view: "physician_conversion_feature_view"
 
 
+train_model_parameters:
+    inference_size: 0.1
 
     
