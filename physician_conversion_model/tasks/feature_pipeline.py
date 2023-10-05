@@ -100,8 +100,8 @@ class DataPrep:
         
         # push data to s3 bucket
         push_status_train = utils_func.push_df_to_s3(train_df, self.bucket_name, self.aws_region, self.train_path)
-        push_status_inference = utils_func.push_df_to_s3(inference_df, self.bucket_name, self.aws_region, self.train_path)
-        push_status_df = utils_func.push_df_to_s3(df_feature_store, self.bucket_name, self.aws_region, self.inference_path)
+        push_status_inference = utils_func.push_df_to_s3(inference_df, self.bucket_name, self.aws_region, self.inference_path)
+        push_status_df = utils_func.push_df_to_s3(df_feature_store, self.bucket_name, self.aws_region, self.s3_object_key)
         
         #Feature Selection Using Select K Best
         df = df_input.drop(self.id_col_list, axis=1)
