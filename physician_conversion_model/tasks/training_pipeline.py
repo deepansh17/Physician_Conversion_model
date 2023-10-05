@@ -95,16 +95,16 @@ class Trainmodel():
         labels=["target"]
         )
         TEST_SIZE = 0.2
-        VALIDATION_SIZE = 0.3
-        td_version, td_job = feature_view.create_train_validation_test_split(
+        td_version, td_job = feature_view.create_train_test_split(
             description = 'Physician Conversion model feature data',
             data_format = 'csv',
-            validation_size = VALIDATION_SIZE,
             test_size = TEST_SIZE
         )
         
         # create a training dataset as DataFrame
-        X_train, X_val, X_test, y_train, y_val, y_test = feature_view.train_validation_test_split(validation_size=VALIDATION_SIZE, test_size=TEST_SIZE,random_state=42)
+        X_train, X_test, y_train, y_test = feature_view.train_test_split(test_size=TEST_SIZE)
+        print(X_train.shape)
+        print(X_test.shape)
        
         
         
