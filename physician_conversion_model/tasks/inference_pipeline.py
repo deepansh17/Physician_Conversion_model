@@ -31,6 +31,7 @@ class Inferencemodel():
         utils_func = my_module.utils()
         df_input = utils_func.load_data_from_s3(self.bucket_name, self.aws_region, self.inference_path)
         drop_list = self.id_drop_column_list.append("TARGET")
+        print(drop_list)
         df_inference = df_input.drop(drop_list, axis=1)
         model = mlflow.load_model(registered_model_name="xgboost-model")
         
