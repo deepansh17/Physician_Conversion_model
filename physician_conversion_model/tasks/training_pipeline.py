@@ -114,33 +114,33 @@ class Trainmodel():
             best_model.fit(X_train.drop(drop_id_col_list, axis=1, errors='ignore'), y_train)
             
             # Evaluate the final model on a test dataset (X_test, y_test)
-            #test_score = best_model.score(X_test.drop(drop_id_col_list, axis=1, errors='ignore'), y_test)
+            test_score = best_model.score(X_test.drop(drop_id_col_list, axis=1, errors='ignore'), y_test)
             
             # Log evaluation metric (e.g., accuracy)
-            #mlflow.log_metric("test_accuracy", test_score)
+            mlflow.log_metric("test_accuracy", test_score)
             
             # Log the trained model using MLflow's XGBoost log function
             mlflow.xgboost.log_model(best_model,artifact_path="usecase", registered_model_name="xgboost-model")
             
-            # #log confusion metrics
-            # utils_func.eval_cm(best_model, X_train, y_train, X_test,
-            #                                 y_test,drop_id_col_list)
+            #log confusion metrics
+            utils_func.eval_cm(best_model, X_train, y_train, X_test,
+                                            y_test,drop_id_col_list)
             
-            # # log roc curve
-            # utils_func.roc_curve(best_model, 
-            #                 X_test,y_test,drop_id_col_list)
+            # log roc curve
+            utils_func.roc_curve(best_model, 
+                            X_test,y_test,drop_id_col_list)
             
-            # #Log model evaluation metrics
-            # mlflow.log_metrics(utils_func.evaluation_metrics(
-            #     best_model,
-            #     X_train, y_train, 
-            #     X_test, y_test,
-            #       drop_id_col_list))
+            #Log model evaluation metrics
+            mlflow.log_metrics(utils_func.evaluation_metrics(
+                best_model,
+                X_train, y_train, 
+                X_test, y_test,
+                  drop_id_col_list))
             
 
-            # mlflow.log_artifact('confusion_matrix_train.png')
-            # mlflow.log_artifact('confusion_matrix_validation.png')
-            # mlflow.log_artifact('roc_curve.png')
+            mlflow.log_artifact('confusion_matrix_train.png')
+            mlflow.log_artifact('confusion_matrix_validation.png')
+            mlflow.log_artifact('roc_curve.png')
             
         
         
