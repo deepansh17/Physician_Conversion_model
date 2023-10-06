@@ -55,7 +55,11 @@ jobs:
       #   run: |
       #     python physician_conversion_model/tasks/feature_pipeline.py
 
-      - name: Run the training_pipeline workflow in a jobless fashion
+      # - name: Run the training_pipeline workflow in a jobless fashion
+      #   run: |
+      #     python physician_conversion_model/tasks/training_pipeline.py
+
+      - name: Run the inference_pipeline workflow in a jobless fashion
         run: |
-          python physician_conversion_model/tasks/training_pipeline.py
+          python physician_conversion_model/tasks/inference_pipeline.py
 
