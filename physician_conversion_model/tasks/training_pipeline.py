@@ -14,11 +14,11 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve, auc
 import xgboost as xgb
 from urllib.parse import urlparse
-# import mlflow
-# from mlflow.tracking.client import MlflowClient
+import mlflow
+from mlflow.tracking.client import MlflowClient
 
 # # Hyperparameter Tuning
-# from hyperopt import fmin, tpe, hp, SparkTrials, STATUS_OK, Trials
+from hyperopt import fmin, tpe, hp, SparkTrials, STATUS_OK, Trials
 
 #System and Env Dependencies
 import warnings
@@ -50,6 +50,8 @@ class Trainmodel():
         self.folder_path = self.conf['preprocessed']['model_variable_list_file_path']
         self.file_name = self.conf['preprocessed']['model_variable_list_file_name']
         self.feature_view = self.conf['hopsworks_feature_store']['feature_view']
+        self.id_drop_column_list = self.conf['feature_transformation']['id_col_list']
+        self.best_params = self.conf['train_model_parameters']['params']
         
     def load_module(self, file_name, module_name):
         spec = importlib.util.spec_from_file_location(module_name, file_name)
@@ -90,22 +92,56 @@ class Trainmodel():
         #create feature view
         feature_view = fs.get_or_create_feature_view(
         name=self.feature_view,
-        version=1,
+        version=4,
         query=query,
         labels=["target"]
         )
         TEST_SIZE = 0.2
         td_version, td_job = feature_view.create_train_test_split(
-            description = 'Physician Conversion model feature data',
+            description = 'Physician Conversion model train feature data',
             data_format = 'csv',
             test_size = TEST_SIZE
         )
         
         # create a training dataset as DataFrame
         X_train, X_test, y_train, y_test = feature_view.train_test_split(test_size=TEST_SIZE)
-        print(X_train.shape)
-        print(X_test.shape)
-       
+        with mlflow.start_run():
+            drop_id_col_list = self.id_drop_column_list
+            mlflow.log_params(self.best_params)
+            
+            # Train the final model with the best hyperparameters
+            best_model = xgb.XGBClassifier(**self.best_params, random_state=321)
+            best_model.fit(X_train.drop(drop_id_col_list, axis=1, errors='ignore'), y_train)
+            
+            # Evaluate the final model on a test dataset (X_test, y_test)
+            test_score = best_model.score(X_test.drop(drop_id_col_list, axis=1, errors='ignore'), y_test)
+            
+            # Log evaluation metric (e.g., accuracy)
+            mlflow.log_metric("test_accuracy", test_score)
+            
+            # Log the trained model using MLflow's XGBoost log function
+            mlflow.xgboost.log_model(best_model, "xgboost-model")
+            
+            #log confusion metrics
+            utils_func.eval_cm(best_model, X_train, y_train, X_test,
+                                            y_test,drop_id_col_list)
+            
+            # log roc curve
+            utils_func.roc_curve(best_model, 
+                            X_test,y_test,drop_id_col_list)
+            
+            #Log model evaluation metrics
+            mlflow.log_metrics(utils_func.evaluation_metrics(
+                best_model,
+                X_train, y_train, 
+                X_test, y_test,
+                  drop_id_col_list))
+            
+
+            mlflow.log_artifact('confusion_matrix_train.png')
+            mlflow.log_artifact('confusion_matrix_validation.png')
+            mlflow.log_artifact('roc_curve.png')
+            
         
         
 if __name__ == '__main__':

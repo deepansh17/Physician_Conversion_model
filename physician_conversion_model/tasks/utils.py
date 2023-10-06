@@ -7,6 +7,9 @@ import pickle
 import os
 import importlib.util
 import sys
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score, f1_score, accuracy_score
 
 class utils():
    
@@ -139,3 +142,81 @@ class utils():
                 df[col] = df[col].astype(str)
             else:
                 print(f"Column '{col}' not found in the DataFrame.")
+                
+    def eval_cm(self,model, X_train, y_train, X_val, y_val, drop_id_col_list):
+        
+        model.fit(X_train.drop(drop_id_col_list, axis=1, errors='ignore'), y_train)
+        y_pred_train = model.predict(X_train.drop(drop_id_col_list, axis=1, errors='ignore'))
+        y_pred_val = model.predict(X_val.drop(drop_id_col_list, axis=1, errors='ignore'))
+
+        # Confusion Matrix
+        plt.figure(figsize=(8, 6))
+        cm_train = confusion_matrix(y_train, y_pred_train)
+        cm_val = confusion_matrix(y_val, y_pred_val)
+        plt.subplot(1, 2, 1)
+        sns.heatmap(cm_train, annot=True, fmt='d', cmap='Blues', cbar=False)
+        plt.title('Confusion Matrix (Train)')
+        plt.savefig('confusion_matrix_train.png')
+        plt.subplot(1, 2, 2)
+        sns.heatmap(cm_val, annot=True, fmt='d', cmap='Blues', cbar=False)
+        plt.title('Confusion Matrix (Validation)')
+        plt.savefig('confusion_matrix_validation.png')
+        
+    def roc_curve(self,model, X_val,y_val, drop_id_col_list):
+            
+            """
+            Logs Roc_auc curve in MLflow.
+
+            Parameters:
+            - y_test: The true labels (ground truth).
+            
+
+            Returns:
+            - None
+            """
+            y_pred = model.predict(X_val.drop(drop_id_col_list, axis=1, errors='ignore'))
+            fpr, tpr, thresholds = roc_curve(y_val, y_pred)
+            roc_auc = roc_auc_score(y_val, y_pred)
+
+            # Create and save the ROC curve plot
+            plt.figure(figsize=(8, 6))
+            plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
+            plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+            plt.xlim([0.0, 1.0])
+            plt.ylim([0.0, 1.05])
+            plt.xlabel('False Positive Rate')
+            plt.ylabel('True Positive Rate')
+            plt.title('Receiver Operating Characteristic (ROC) Curve')
+            plt.legend(loc='lower right')
+            roc_curve_plot_path = "roc_curve.png"
+            
+            plt.savefig(roc_curve_plot_path)
+            
+    def evaluation_metrics(self, model, X_train, y_train, X_val, y_val, drop_id_col_list):
+        
+        """
+            Logs f1_Score and accuracy in MLflow.
+
+            Parameters:
+            - y_test: The true labels (ground truth).
+            - y_pred: The predicted labels (model predictions).
+            - run_name: The name for the MLflow run.
+
+            Returns:
+            - f1score and accuracy
+        """
+
+        model.fit(X_train.drop(drop_id_col_list, axis=1, errors='ignore'), y_train)
+        y_pred_train = model.predict(X_train.drop(drop_id_col_list, axis=1, errors='ignore'))
+        y_pred_val = model.predict(X_val.drop(drop_id_col_list, axis=1, errors='ignore'))
+
+        f1_train = f1_score(y_train, y_pred_train)
+        accuracy_train = accuracy_score(y_train, y_pred_train)
+
+        f1_val = f1_score(y_val, y_pred_val)
+        accuracy_val = accuracy_score(y_val, y_pred_val)
+
+        return {'Train_F1-score' : round(f1_train,2),
+                'Validation_F1-score' : round(f1_val,2),
+                'Train_Accuracy' : round(accuracy_train,2),
+                'Validation_Accuracy' : round(accuracy_val,2)}

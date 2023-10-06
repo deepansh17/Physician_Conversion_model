@@ -1,0 +1,15 @@
+artifact_uri: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/3b500b7e717f4f88890f4c4a911bfb83/artifacts
+end_time: 1696520640591
+entry_point_name: ''
+experiment_id: '114820925792721688'
+lifecycle_stage: active
+run_id: 3b500b7e717f4f88890f4c4a911bfb83
+run_name: silent-whale-231
+run_uuid: 3b500b7e717f4f88890f4c4a911bfb83
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1696520628356
+status: 4
+tags: []
+user_id: deepansh

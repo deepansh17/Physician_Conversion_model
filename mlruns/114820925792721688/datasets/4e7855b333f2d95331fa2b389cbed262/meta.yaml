@@ -1,0 +1,9 @@
+digest: ec32a529
+name: dataset
+profile: '{"features_shape": [3600, 61], "features_size": 219600, "features_nbytes":
+  878400}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float32\", \"shape\": [-1, 61]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "deepansh", "mlflow.source.name": "e:\\Anaconda\\lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

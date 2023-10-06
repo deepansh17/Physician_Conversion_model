@@ -1,0 +1,15 @@
+artifact_uri: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/edb72b18efbc40eb8e0082483d26c81b/artifacts
+end_time: 1696519508271
+entry_point_name: ''
+experiment_id: '114820925792721688'
+lifecycle_stage: active
+run_id: edb72b18efbc40eb8e0082483d26c81b
+run_name: stately-shrike-259
+run_uuid: edb72b18efbc40eb8e0082483d26c81b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1696519489192
+status: 4
+tags: []
+user_id: deepansh

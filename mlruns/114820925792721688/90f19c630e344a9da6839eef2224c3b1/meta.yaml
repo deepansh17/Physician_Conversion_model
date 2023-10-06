@@ -1,0 +1,15 @@
+artifact_uri: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/90f19c630e344a9da6839eef2224c3b1/artifacts
+end_time: 1696520419834
+entry_point_name: ''
+experiment_id: '114820925792721688'
+lifecycle_stage: active
+run_id: 90f19c630e344a9da6839eef2224c3b1
+run_name: grandiose-croc-203
+run_uuid: 90f19c630e344a9da6839eef2224c3b1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1696520396045
+status: 3
+tags: []
+user_id: deepansh

@@ -1,0 +1,15 @@
+artifact_uri: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/485dcdbae158428da5cb6a316f1da4f2/artifacts
+end_time: 1696519814625
+entry_point_name: ''
+experiment_id: '114820925792721688'
+lifecycle_stage: active
+run_id: 485dcdbae158428da5cb6a316f1da4f2
+run_name: orderly-stoat-792
+run_uuid: 485dcdbae158428da5cb6a316f1da4f2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1696519783394
+status: 4
+tags: []
+user_id: deepansh

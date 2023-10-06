@@ -1,0 +1,13 @@
+aliases: []
+creation_timestamp: 1696519580954
+current_stage: None
+description: null
+last_updated_timestamp: 1696519580954
+name: Physician_classifer
+run_id: 1db94a8ed4dc45bea434f23e007bc628
+run_link: null
+source: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/1db94a8ed4dc45bea434f23e007bc628/artifacts/usecase
+status: READY
+status_message: null
+user_id: null
+version: 1

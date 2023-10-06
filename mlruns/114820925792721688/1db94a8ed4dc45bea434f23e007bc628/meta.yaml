@@ -1,0 +1,15 @@
+artifact_uri: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/1db94a8ed4dc45bea434f23e007bc628/artifacts
+end_time: 1696519593408
+entry_point_name: ''
+experiment_id: '114820925792721688'
+lifecycle_stage: active
+run_id: 1db94a8ed4dc45bea434f23e007bc628
+run_name: fun-chimp-578
+run_uuid: 1db94a8ed4dc45bea434f23e007bc628
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1696519560172
+status: 4
+tags: []
+user_id: deepansh

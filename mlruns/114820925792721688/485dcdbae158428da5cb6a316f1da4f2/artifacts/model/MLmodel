@@ -1,0 +1,58 @@
+artifact_path: model
+flavors:
+  python_function:
+    data: model.xgb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.9.12
+  xgboost:
+    code: null
+    data: model.xgb
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: xgb
+    xgb_version: 2.0.0
+mlflow_version: 2.7.1
+model_uuid: 88622b31e42441cb9aa957965b2e32a5
+run_id: 485dcdbae158428da5cb6a316f1da4f2
+signature:
+  inputs: '[{"type": "long", "name": "Age"}, {"type": "long", "name": "Year_of_Experience"},
+    {"type": "long", "name": "Number_of_Rx"}, {"type": "long", "name": "Rx_last_1_Month"},
+    {"type": "long", "name": "Rx_last_3_Month"}, {"type": "long", "name": "Rx_last_6_Month"},
+    {"type": "long", "name": "Rx_last_12_Month"}, {"type": "long", "name": "Number_of_Px"},
+    {"type": "long", "name": "Px_last_1_Month"}, {"type": "long", "name": "Px_last_3_Month"},
+    {"type": "long", "name": "Px_last_6_Month"}, {"type": "long", "name": "Px_last_12_Month"},
+    {"type": "long", "name": "Claims_last_1_Month"}, {"type": "long", "name": "Claims_last_3_Month"},
+    {"type": "long", "name": "Claims_last_6_Month"}, {"type": "long", "name": "Claims_last_12_Month"},
+    {"type": "long", "name": "Procedures_chemo_last_1_month"}, {"type": "long", "name":
+    "Procedures_chemo_last_3_month"}, {"type": "long", "name": "Procedures_chemo_last_6_month"},
+    {"type": "long", "name": "Procedures_chemo_last_12_month"}, {"type": "long", "name":
+    "Procedures_radio_last_1_month"}, {"type": "long", "name": "Procedures_radio_last_3_month"},
+    {"type": "long", "name": "Procedures_radio_last_6_month"}, {"type": "long", "name":
+    "Procedures_radio_last_12_month"}, {"type": "long", "name": "Procedures_Immuno_last_1_month"},
+    {"type": "long", "name": "Procedures_Immuno_last_3_month"}, {"type": "long", "name":
+    "Procedures_Immuno_last_6_month"}, {"type": "long", "name": "Procedures_Immuno_last_12_month"},
+    {"type": "long", "name": "Procedures_Biopsy_last_1_month"}, {"type": "long", "name":
+    "Procedures_Biopsy_last_3_month"}, {"type": "long", "name": "Procedures_Biopsy_last_6_month"},
+    {"type": "long", "name": "Procedures_Biopsy_last_12_month"}, {"type": "long",
+    "name": "Promotional_doximity"}, {"type": "long", "name": "Promotional_doximity_last_1_month"},
+    {"type": "long", "name": "Promotional_doximity_last_3_month"}, {"type": "long",
+    "name": "Promotional_doximity_last_6_month"}, {"type": "long", "name": "Promotional_doximity_last_12_month"},
+    {"type": "long", "name": "Promotional_medscape"}, {"type": "long", "name": "Promotional_medscape_last_1_month"},
+    {"type": "long", "name": "Promotional_medscape_last_3_month"}, {"type": "long",
+    "name": "Promotional_medscape_last_6_month"}, {"type": "long", "name": "Promotional_medscape_last_12_month"},
+    {"type": "long", "name": "F2F_visit"}, {"type": "long", "name": "F2F_visit_last_1_month"},
+    {"type": "long", "name": "F2F_visit_last_3_month"}, {"type": "long", "name": "F2F_visit_last_6_month"},
+    {"type": "long", "name": "F2F_visit_last_12_month"}, {"type": "long", "name":
+    "VRC_visit"}, {"type": "long", "name": "VRC_visit_last_1_month"}, {"type": "long",
+    "name": "VRC_visit_last_3_month"}, {"type": "long", "name": "VRC_visit_last_6_month"},
+    {"type": "long", "name": "VRC_visit_last_12_month"}, {"type": "long", "name":
+    "Sex_M"}, {"type": "long", "name": "Specialty_Immunology"}, {"type": "long", "name":
+    "Specialty_Neurooncology"}, {"type": "long", "name": "Specialty_Oncology"}, {"type":
+    "long", "name": "Specialty_Pediatric"}, {"type": "long", "name": "Specialty_Urooncology"},
+    {"type": "long", "name": "HCO_Affiliation_Type_Contract"}, {"type": "long", "name":
+    "HCO_Affiliation_Type_Employment"}, {"type": "long", "name": "HCO_Affiliation_Type_Referral"}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int32", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2023-10-05 15:30:06.362800'

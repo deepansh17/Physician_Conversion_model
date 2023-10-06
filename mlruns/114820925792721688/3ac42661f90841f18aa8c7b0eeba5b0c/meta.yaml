@@ -1,0 +1,15 @@
+artifact_uri: file:///f:/Github/Physician_Conversion_model/mlruns/114820925792721688/3ac42661f90841f18aa8c7b0eeba5b0c/artifacts
+end_time: 1696520459133
+entry_point_name: ''
+experiment_id: '114820925792721688'
+lifecycle_stage: active
+run_id: 3ac42661f90841f18aa8c7b0eeba5b0c
+run_name: zealous-pug-108
+run_uuid: 3ac42661f90841f18aa8c7b0eeba5b0c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1696520435874
+status: 3
+tags: []
+user_id: deepansh

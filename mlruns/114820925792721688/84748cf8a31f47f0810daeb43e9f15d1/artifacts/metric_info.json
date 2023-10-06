@@ -1,0 +1,3 @@
+{
+  "XGBClassifier_score_unknown_dataset": "XGBClassifier.score(X=<DataFrame>, y=y_inference)"
+}
