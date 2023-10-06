@@ -32,7 +32,7 @@ class Inferencemodel():
         df_input = utils_func.load_data_from_s3(self.bucket_name, self.aws_region, self.inference_path)
         df_inference = df_input.drop(self.id_drop_column_list, axis=1)
         df_inference = df_inference.drop(["TARGET"], axis=1)
-        model_uri = "runs:/84748cf8a31f47f0810daeb43e9f15d1/model"
+        model_uri = "./physician_conversion_model/tasks/mlruns/114820925792721688/84748cf8a31f47f0810daeb43e9f15d1/artifacts/xgboost-model"
         model = mlflow.pyfunc.load_model(model_uri)
         
 if __name__ == '__main__':
