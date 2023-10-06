@@ -122,25 +122,25 @@ class Trainmodel():
             # Log the trained model using MLflow's XGBoost log function
             mlflow.xgboost.log_model(best_model, "xgboost-model")
             
-            #log confusion metrics
-            utils_func.eval_cm(best_model, X_train, y_train, X_test,
-                                            y_test,drop_id_col_list)
+            # #log confusion metrics
+            # utils_func.eval_cm(best_model, X_train, y_train, X_test,
+            #                                 y_test,drop_id_col_list)
             
-            # log roc curve
-            utils_func.roc_curve(best_model, 
-                            X_test,y_test,drop_id_col_list)
+            # # log roc curve
+            # utils_func.roc_curve(best_model, 
+            #                 X_test,y_test,drop_id_col_list)
             
-            #Log model evaluation metrics
-            mlflow.log_metrics(utils_func.evaluation_metrics(
-                best_model,
-                X_train, y_train, 
-                X_test, y_test,
-                  drop_id_col_list))
+            # #Log model evaluation metrics
+            # mlflow.log_metrics(utils_func.evaluation_metrics(
+            #     best_model,
+            #     X_train, y_train, 
+            #     X_test, y_test,
+            #       drop_id_col_list))
             
 
-            mlflow.log_artifact('confusion_matrix_train.png')
-            mlflow.log_artifact('confusion_matrix_validation.png')
-            mlflow.log_artifact('roc_curve.png')
+            # mlflow.log_artifact('confusion_matrix_train.png')
+            # mlflow.log_artifact('confusion_matrix_validation.png')
+            # mlflow.log_artifact('roc_curve.png')
             
         
         
