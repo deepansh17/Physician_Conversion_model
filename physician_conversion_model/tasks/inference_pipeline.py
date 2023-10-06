@@ -34,6 +34,8 @@ class Inferencemodel():
         df_inference = df_inference.drop(["TARGET"], axis=1)
         model_uri = "./physician_conversion_model/tasks/mlruns/114820925792721688/84748cf8a31f47f0810daeb43e9f15d1/artifacts/xgboost-model"
         model = mlflow.pyfunc.load_model(model_uri)
+        df_inference['Prediction'] = model.predict(df_inference)
+        print(df_inference['Prediction'].value_counts())
         
 if __name__ == '__main__':
     with open('./conf/tasks/feature_pipepline.yml', 'r') as config_file:
