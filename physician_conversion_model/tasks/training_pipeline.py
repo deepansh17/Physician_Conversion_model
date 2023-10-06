@@ -107,20 +107,20 @@ class Trainmodel():
         X_train, X_test, y_train, y_test = feature_view.train_test_split(test_size=TEST_SIZE)
         with mlflow.start_run():
             drop_id_col_list = self.id_drop_column_list
-            mlflow.log_params(self.best_params)
+            #mlflow.log_params(self.best_params)
             
             # Train the final model with the best hyperparameters
             best_model = xgb.XGBClassifier(**self.best_params, random_state=321)
             best_model.fit(X_train.drop(drop_id_col_list, axis=1, errors='ignore'), y_train)
             
             # Evaluate the final model on a test dataset (X_test, y_test)
-            test_score = best_model.score(X_test.drop(drop_id_col_list, axis=1, errors='ignore'), y_test)
+            #test_score = best_model.score(X_test.drop(drop_id_col_list, axis=1, errors='ignore'), y_test)
             
             # Log evaluation metric (e.g., accuracy)
-            mlflow.log_metric("test_accuracy", test_score)
+            #mlflow.log_metric("test_accuracy", test_score)
             
             # Log the trained model using MLflow's XGBoost log function
-            mlflow.xgboost.log_model(best_model, "xgboost-model")
+            mlflow.xgboost.log_model(best_model,artifact_path="usecase", registered_model_name="xgboost-model")
             
             # #log confusion metrics
             # utils_func.eval_cm(best_model, X_train, y_train, X_test,
