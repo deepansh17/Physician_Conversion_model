@@ -18,7 +18,7 @@ import mlflow
 from mlflow.tracking.client import MlflowClient
 
 # # Hyperparameter Tuning
-from hyperopt import fmin, tpe, hp, SparkTrials, STATUS_OK, Trials
+#from hyperopt import fmin, tpe, hp, SparkTrials, STATUS_OK, Trials
 
 #System and Env Dependencies
 import warnings
